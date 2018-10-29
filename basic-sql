@@ -1,0 +1,26 @@
+SQL Queries
+-employee and department databases (separate, join by department_id)
+
+1.	Return employee record with highest salary
+SELECT * FROM employee WHERE salary = (SELECT MAX(salary) FROM employee)
+
+2.	Return the highest salary in employee table
+SELECT MAX(salary) FROM employee
+
+3.	Return 2nd highest salary from employee table
+SELECT MAX(salary) FROM employee WHERE salary NOT IN (SELECT MAX(salary) FROM employee)
+
+4.	Select range of employees based on ID
+SELECT * FROM employee WHERE employee BETWEEN 2003 AND 2008
+
+5.	Return an employee with the highest salary and the employee’s department name
+SELECT e.first_name, e.last_name, e.salary, d.department_name FROM employee e INNER JOIN department d ON (e.department_id = d.department_id) WHERE salary IN (SELECT MAX(salary) FROM employee)
+
+6.	Return highest salary, employee name, and department name for each department
+SELECT e.first_name, e.last_name, e.salary, d.department_name FROM employee e INNER JOIN department d ON (e.department_id = d.department_id) WHERE salary IN (SELECT MAX(salary) FROM employee GROUP BY department_id)
+
+
+
+pophhDataQuery <- paste0("SELECT a.hisp, b.hht, sum(a.pwgtp) as pwgtp, sum(b.wgtp) as wgtp FROM public_data_ods.yr5_2012_pus a JOIN public_data_ods.yr5_2012_hus b ON (a.serialno = b.serialno) GROUP BY a.hisp, b.hht")
+
+SELECT a.hisp, b.hht, SUM(a.pwgtp) AS pwgtp, SUM(b.wgtp) AS wgtp FROM public_data_ods.yr5_2012_pus a JOIN public_data_ods.yr5_2012_hus b ON (a.serialno = b.serialno) GROUP BY a.hisp, b.hht WHERE hisp = 1
